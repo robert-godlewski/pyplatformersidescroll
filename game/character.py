@@ -2,6 +2,22 @@ import pygame
 
 
 class Character(pygame.sprite.Sprite):
-    def __init__(self, color, width: int, height: int) -> None:
-        pygame.sprite.Sprite.__init__(self)
-        # Need to flush this out
+    def __init__(self, color: tuple, width: int, height: int, position_x: int, position_y: int):
+        # For now just use a rectangle
+        self.color = color
+        self.rect = pygame.Rect(position_x,position_y,width,height)
+        self.x_velocity = 5
+        self.y_velocity = 5
+
+    def draw(self, surface) -> pygame.Rect:
+        pygame.draw.rect(surface, color=self.color, rect=self.rect)
+
+    def move(self, dx, dy):
+        self.rect.x += dx
+        self.rect.y += dy
+
+    def move_left(self, dt):
+        self.rect.x -= 300 * dt
+
+    def move_right(self, dt):
+        self.rect.x += 300 * dt
